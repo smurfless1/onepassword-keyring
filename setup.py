@@ -2,6 +2,7 @@ from setuptools import setup
 
 setup(
     name='onepassword-keyring',
+    version='2.0.2',
     packages=['onepassword_keyring'],
     install_requires=[
         'keyring',
