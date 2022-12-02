@@ -1,2 +1,5 @@
 /build/
 /onepassword_keyring.egg-info/
+dist/
+__pycache__
+
