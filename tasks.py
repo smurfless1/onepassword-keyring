@@ -10,7 +10,7 @@ def setup_poetry(c):
 
 @task
 def publish(c):
-    c.run(f"poetry publish --build --repository gitea")
+    c.run(f"poetry publish --repository gitea")
 
 @task
 def build(c):
