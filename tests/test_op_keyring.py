@@ -18,9 +18,6 @@ class TestOnePasswordKeyringFunctional(unittest.TestCase):
     def test_reads(self):
         self.assertEqual(expected_pass, keyring.get_password(title, username))
 
-    def test_reads_from_duplicates(self):
-        self.assertTrue('U6' in keyring.get_password('Airbnb', 'business@smurfless.com'))
-
     def test_updates(self):
         keyring.set_password(title, username, expected_pass)
 
