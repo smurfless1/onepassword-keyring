@@ -15,7 +15,7 @@ entry_points = \
 
 setup_kwargs = {
     'name': 'onepassword-keyring',
-    'version': '2.0.9',
+    'version': '2.0.10',
     'description': 'keyring wrapper for onepassword module',
     'long_description': 'None',
     'author': 'David Brown',
