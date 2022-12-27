@@ -46,7 +46,7 @@ def just_patch(c):
 
 
 @task
-def just_commit(c, message):
+def just_commit(c, message="patch bump"):
     c.run(f"git commit -m '{message}'")
 
 
@@ -60,12 +60,17 @@ def build(c):
     c.run("poetry build")
 
 
-@task(build)
-def publish(c):
+@task
+def just_publish(c):
     c.run(f"poetry publish --repository gitea")
 
 
 @task(build, just_patch, just_commit, just_push)
 def patch(c):
     pass
+
+
+@task(patch)
+def publish(c):
+    c.run(f"poetry publish --repository gitea")
 
