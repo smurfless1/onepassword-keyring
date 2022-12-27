@@ -30,11 +30,29 @@ def poetry_unset(c):
 @task
 def black(c):
     c.run("black onepassword_keyring/*.py tests/*.py")
+    c.run("git add onepassword_keyring/*.py tests/*.py")
 
 
 @task
 def setup_py(c):
     c.run("poetry2setup > setup.py")
+    c.run("git add setup.py")
+
+
+@task
+def just_patch(c):
+    c.run("poetry version patch")
+    c.run("git add pyproject.toml")
+
+
+@task
+def just_commit(c, message):
+    c.run(f"git commit -m '{message}'")
+
+
+@task
+def just_push(c):
+    c.run("git push")
 
 
 @task(black, setup_py)
@@ -45,3 +63,9 @@ def build(c):
 @task(build)
 def publish(c):
     c.run(f"poetry publish --repository gitea")
+
+
+@task(build, just_patch, just_commit, just_push)
+def patch(c):
+    pass
+
