@@ -12,7 +12,7 @@ install_requires = \
 
 setup_kwargs = {
     'name': 'onepassword-keyring',
-    'version': '2.0.1',
+    'version': '2.0.4',
     'description': 'keyring wrapper for onepassword module',
     'long_description': 'None',
     'author': 'David Brown',

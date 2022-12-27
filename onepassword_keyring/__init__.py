@@ -14,7 +14,9 @@ class OnePasswordKeyring(KeyringBackend):
         try:
             import onepassword
         except ImportError:  # pragma: no cover
-            raise RuntimeError("Requires the onepassword-client-v2 package install: pip install onepassword-client-v2")
+            raise RuntimeError(
+                "Requires the onepassword-client-v2 package install: pip install onepassword-client-v2"
+            )
         return 0.6
 
     def __init__(self):
@@ -27,7 +29,7 @@ class OnePasswordKeyring(KeyringBackend):
         """
         self.op.sign_in_if_needed()
         vaults = self.op.list_vaults()
-        assert(bool(vaults))
+        assert bool(vaults)
 
     def _unlock(self):
         """
@@ -42,7 +44,9 @@ class OnePasswordKeyring(KeyringBackend):
         """
         self._check_onepassword_connection()
 
-    def _get_matching_uuid(self, service: str, username: str, vault: Optional[str] = None) -> Optional[str]:
+    def _get_matching_uuid(
+        self, service: str, username: str, vault: Optional[str] = None
+    ) -> Optional[str]:
         """
         Get the item fields matching this most closely.
 
@@ -51,29 +55,31 @@ class OnePasswordKeyring(KeyringBackend):
         The CLI will fail, but this handles it pre-emptively.
         :return:
         """
-        return self.op.get_first_uuid_with_hint(title=service, hint=username, vault=vault)
+        return self.op.get_first_uuid_with_hint(
+            title=service, hint=username, vault=vault
+        )
 
     def get_password(self, service: str, username: str) -> Optional[str]:
-        '''
+        """
         Get the login matching this title and username, and return its password.
-        '''
+        """
         self._check_onepassword_connection()
         uuid = self._get_matching_uuid(service, username)
         if uuid is None:
-            return 'not found'
+            return "not found"
 
-        response_dict = self.op.get_item_fields(uuid=uuid, fields=['username', 'password'])
-        if response_dict.get('username') == username:
-            return response_dict.get('password')
-        return 'not found'
+        response_dict = self.op.get_item_fields(
+            uuid=uuid, fields=["username", "password"]
+        )
+        if response_dict.get("username") == username:
+            return response_dict.get("password")
+        return "not found"
 
     def set_password(self, service: str, username: str, password: str) -> None:
         self._check_onepassword_connection()
         uuid = self._get_matching_uuid(service, username)
         if uuid is None:
-            self.op.create_login(
-                username, password, service
-            )
+            self.op.create_login(username, password, service)
             return
 
         self.op.edit_item_username(uuid=uuid, value=username)
