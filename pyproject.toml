@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "onepassword_keyring"
-version = "2.0.3"
+version = "2.0.4"
 description = "keyring wrapper for onepassword module"
 authors = ["David Brown <forums@smurfless.com>"]
 
