@@ -65,7 +65,7 @@ def just_publish(c):
     c.run(f"poetry publish --repository gitea")
 
 
-@task(build, just_patch, just_commit, just_push)
+@task(just_patch, build, just_commit, just_push)
 def patch(c):
     pass
 
